@@ -40,6 +40,7 @@ const BlogPage = () => {
       sx={{
         minHeight: '100vh',
         backgroundColor: '#fffbf6',
+        pb: { xs: 2, md: 4 },
         px: { xs: 2, md: 0 }, // Add padding on mobile to prevent edge clipping
       }}
     >
