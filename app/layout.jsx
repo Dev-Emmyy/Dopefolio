@@ -4,13 +4,14 @@ import Navbar from "./components/Navbar";
 import { Box } from "@mui/material";
 
 export const metadata = {
-  title: "My Portfolio",  
+  title: "My Dopefolio",  
   description: "A showcase of my work and skills",
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: "/appLogo.png", // Path to your favicon
+    shortcut: "/appLogo.png", // Shortcut icon for browsers
+    apple: "/appLogo.png", // Apple touch icon
   },
+  manifest: "/manifest.json", // Path to your manifest file
 };
 
 export default function RootLayout({ children }) {

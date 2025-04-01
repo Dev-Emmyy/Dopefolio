@@ -1,0 +1,20 @@
+{
+  "name": "Travel Agency",
+  "short_name": "TravelAgency",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF6F00",
+  "icons": [
+    {
+      "src": "/appLogo.png",
+      "sizes": "300x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/appLogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
