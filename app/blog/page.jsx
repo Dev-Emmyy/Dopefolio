@@ -323,7 +323,7 @@ const BlogPage = () => {
             variant="body2"
             sx={{
               fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-              fontSize: { xs: '10px', md: '0.875rem' },
+              fontSize: { xs: '9px', md: '0.875rem' },
               color: '#656270',
             }}
           >
