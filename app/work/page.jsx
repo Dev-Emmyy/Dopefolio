@@ -34,11 +34,11 @@ const WorkPage = () => {
       link: 'https://mr-beastgames-memecoin.vercel.app/',
     },
     {
-      name: 'ArtisanHub',
+      name: 'My Portfolio',
       laptopScreenshot: '/laptop-screenshot-5.png',
       phoneScreenshot: '/phone-screenshot-5.jpg',
       bgColor: '#FFB3B3', // Pastel coral
-      link: 'https://ai.app/',
+      link: 'https://dopefolio-ten.vercel.app/',
     },
   ];
 
