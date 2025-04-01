@@ -27,7 +27,7 @@ const WorkPage = () => {
       link: 'https://bet-yield.vercel.app/',
     },
     {
-      name: 'Mr Beast memecoin',
+      name: 'Mr Beast coin',
       laptopScreenshot: '/laptop-screenshot-4.png',
       phoneScreenshot: '/phone-screenshot-4.jpg',
       bgColor: '#F5E050', // Pastel yellow
