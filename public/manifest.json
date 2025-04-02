@@ -1,10 +1,10 @@
 {
-  "name": "Emmy's Dopefolio",
+  "name": "Dopefolio",
   "short_name": "Dopefolio",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#FF6F00",
+  "background_color": "#fffbf6",
+  "theme_color": "#fdf2d9",
   "icons": [
     {
       "src": "/appLogo.png",
