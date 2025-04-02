@@ -1,6 +1,6 @@
 {
   "name": "Dopefolio",
-  "short_name": "Dopefolio",
+  "short_name": "Dopefolio - Portfolio",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fffbf6",
@@ -16,5 +16,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+
   ]
 }
