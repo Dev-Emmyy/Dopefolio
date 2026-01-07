@@ -6,6 +6,13 @@ import Link from 'next/link';
 const WorkPage = () => {
   const projects = [
     {
+      name: 'GAF Supermarket',
+      laptopScreenshot: '/laptop-screenshot-11.png',
+      phoneScreenshot: '/phone-screenshot-11.jpeg',
+      bgColor: '#a2c1c1ff',
+      link: 'https://www.gafsupermarket.com/',
+    },
+    {
       name: 'Nigeria Crisis Map',
       laptopScreenshot: '/laptop-screenshot-10.png',
       phoneScreenshot: '/phone-screenshot-10.jpeg',
