@@ -1,164 +1,249 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
 
-const WorkPage = () => {
-  const projects = [
-    {
-      name: 'GAF Supermarket',
-      laptopScreenshot: '/laptop-screenshot-11.png',
-      phoneScreenshot: '/phone-screenshot-11.jpeg',
-      bgColor: '#a2c1c1ff',
-      link: 'https://www.gafsupermarket.com/',
-    },
-    {
-      name: 'Nigeria Crisis Map',
-      laptopScreenshot: '/laptop-screenshot-10.png',
-      phoneScreenshot: '/phone-screenshot-10.jpeg',
-      bgColor: '#FFE5B4',
-      link: 'https://nigeria-crisis-map-7zyk.vercel.app/',
-    },
-    {
-      name: 'Schease Platform',
-      laptopScreenshot: '/laptop-screenshot-9.png',
-      phoneScreenshot: '/phone-screenshot-9.jpeg',
-      bgColor: '#E6E6FA',
-      link: 'https://www.schease.cognixtech.org/',
-    },
-    {
-      name: 'Boost Grant',
-      laptopScreenshot: '/laptop-screenshot-8.png',
-      phoneScreenshot: '/phone-screenshot-8.jpeg',
-      bgColor: '#B0E0E6',
-      link: 'https://boost-grant.vercel.app/',
-    },
-    {
-      name: 'Cognix Group',
-      laptopScreenshot: '/laptop-screenshot-7.png',
-      phoneScreenshot: '/phone-screenshot-7.jpeg',
-      bgColor: '#FFDAB9',
-      link: 'https://cognix-group.vercel.app/',
-    },
-    {
-      name: 'Rangers International',
-      laptopScreenshot: '/laptop-screenshot-6.png',
-      phoneScreenshot: '/phone-screenshot-6.jpeg',
-      bgColor: '#98FB98',
-      link: 'https://rangersintl.com/',
-    },
-    {
-      name: 'NeuroNotes AI',
-      laptopScreenshot: '/laptop-screenshot.png',
-      phoneScreenshot: '/phone-screenshot.jpg',
-      bgColor: '#FFD1DC',
-      link: 'https://ai-note-app-sepia.vercel.app/',
-    },
-    {
-      name: 'Travel Agency',
-      laptopScreenshot: '/laptop-screenshot-2.png',
-      phoneScreenshot: '/phone-screenshot-2.jpg',
-      bgColor: '#D4A5FF',
-      link: 'https://travel-agency-iota-ivory.vercel.app/login',
-    },
-    {
-      name: 'Betyield',
-      laptopScreenshot: '/laptop-screenshot-3.png',
-      phoneScreenshot: '/phone-screenshot-3.jpg',
-      bgColor: '#A5D7E8',
-      link: 'https://bet-yield.vercel.app/',
-    },
-    {
-      name: 'Mr Beast Coin',
-      laptopScreenshot: '/laptop-screenshot-4.png',
-      phoneScreenshot: '/phone-screenshot-4.jpg',
-      bgColor: '#F5E050',
-      link: 'https://mr-beastgames-memecoin.vercel.app/',
-    },
-    {
-      name: 'My Portfolio',
-      laptopScreenshot: '/laptop-screenshot-5.png',
-      phoneScreenshot: '/phone-screenshot-5.jpg',
-      bgColor: '#FFB3B3',
-      link: 'https://dopefolio-ten.vercel.app/',
-    },
-  ];
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Navbar from "../components/Navbar";
+import styles from "./work.module.css";
+
+const projects = [
+  { number: "01", title: "SchEase Appointment System", category: "SaaS / Scheduling", description: "A dependable appointment platform designed around availability, booking logic, admin visibility, and clean operational handoffs.", tech: ["Next.js", "Node.js", "Postgres"], image: "/laptop-screenshot.png", cta: "View system", featured: true },
+  { number: "02", title: "Lead & CRM Automation Pipeline", category: "Automation / CRM", description: "A lead-routing pipeline that turns scattered enquiries into structured qualification, follow-up, ownership, and reporting.", tech: ["CRM", "Webhooks", "Automation"], image: "/laptop-screenshot-2.png", cta: "Inspect workflow" },
+  { number: "03", title: "Legacy Esports Tournament Manager", category: "Platform / Competition", description: "Tournament operations, registration logic, brackets, match states, and organizer controls consolidated into one system.", tech: ["React", "APIs", "Realtime"], image: "/laptop-screenshot-3.png", cta: "Explore platform" },
+  { number: "04", title: "COOU Transcript/Admin Portal", category: "Admin / Education", description: "A structured request and administration portal for transcript workflows, status visibility, queues, and institutional operations.", tech: ["Next.js", "Admin", "Workflows"], image: "/laptop-screenshot-4.png", cta: "View architecture" },
+  { number: "05", title: "SOC / Security Reporting", category: "Security / Reporting", description: "Security-aware reporting that turns incident signals into readable evidence, escalation context, and decisions.", tech: ["SOC", "Reporting", "Security"], image: "/laptop-screenshot-5.png", cta: "Review system", featured: true },
+  { number: "06", title: "Open-source SaaS Deployment Concept", category: "Infrastructure / Open Source", description: "A deployment concept that packages open-source software into a maintainable SaaS operating model.", tech: ["Docker", "Cloud", "Open source"], image: "/laptop-screenshot-6.png", cta: "See deployment" },
+];
+
+const stackPanels = [
+  ["INTERFACE LAYER", "Frontend systems", ["Next.js", "React", "TypeScript"]],
+  ["CORE LAYER", "Backend & APIs", ["Node.js", "Postgres", "REST APIs"], true],
+  ["OPERATIONS LAYER", "Automation workflows", ["CRM", "Webhooks", "n8n"]],
+  ["DEPLOYMENT LAYER", "Infrastructure", ["Docker", "Render", "CI/CD"]],
+  ["TRUST LAYER", "Security-aware systems", ["SOC", "Reporting", "Access control"], true],
+];
+
+const metrics = [["06", "SaaS systems"], ["12+", "CRM workflows", true], ["24/7", "Automation logic"], ["04", "Admin dashboards"], ["SOC", "Security reports", true], ["API", "Backend systems"]];
+
+const timeline = [
+  ["01 / FOUNDATION", "Frontend engineering", "Interfaces shaped by product intent, hierarchy, accessibility, and responsive behavior."],
+  ["02 / SYSTEMS", "Backend API systems", "Reliable services, data models, permissions, and operational logic behind the interface.", true],
+  ["03 / OPERATIONS", "Automation workflows", "Workflows that reduce manual movement and make ownership, follow-up, and status visible."],
+  ["04 / DELIVERY", "Infrastructure & deployment", "Deployment paths designed for maintainability, observability, and sensible operating cost."],
+  ["05 / TRUST", "Security & SOC reporting", "Security-aware engineering translated into readable evidence, escalation context, and action.", true],
+  ["06 / PRODUCT", "Product and business systems thinking", "Product sense connects interface, logic, operations, and business reality into one coherent build."],
+];
+
+function CTAButton({ children, href, ghost = false }) {
+  return <a className={`${styles.button} ${ghost ? styles.buttonGhost : ""}`} href={href} data-animate="cta-button" data-magnetic>{children}</a>;
+}
+
+function ProjectCard({ project }) {
+  return (
+    <article className={`${styles.projectCard} ${project.featured ? styles.featured : ""}`} data-animate="project-card" data-3d>
+      <div className={styles.cardMeta}><span>{project.number}</span><span>{project.category}</span></div>
+      <h3>{project.title}</h3>
+      <p>{project.description}</p>
+      <div className={styles.mockup}><Image src={project.image} alt={`${project.title} interface`} fill sizes="(max-width: 760px) 100vw, 50vw" data-card-image /></div>
+      <div className={styles.chips}>{project.tech.map((item) => <span key={item}>{item}</span>)}</div>
+      <a className={styles.cardLink} href="#contact" data-magnetic>{project.cta} <span>↗</span></a>
+    </article>
+  );
+}
+
+function StackPanel({ panel }) {
+  const [eyebrow, title, items, featured] = panel;
+  return <article className={`${styles.stackPanel} ${featured ? styles.featured : ""}`} data-animate="stack-panel" data-3d><small>{eyebrow}</small><h3>{title}</h3><div className={styles.chips}>{items.map((item) => <span key={item}>{item}</span>)}</div></article>;
+}
+
+function MetricCard({ metric }) {
+  return <article className={`${styles.metric} ${metric[2] ? styles.featured : ""}`} data-animate="metric-card" data-3d><strong>{metric[0]}</strong><span>{metric[1]}</span></article>;
+}
+
+function TimelineItem({ item, index }) {
+  return <div className={`${styles.timelineRow} ${index % 2 ? styles.timelineReverse : ""}`}><h3>{item[1]}</h3><article className={`${styles.timelineCard} ${item[3] ? styles.featured : ""}`} data-animate="timeline-item"><small>{item[0]}</small><h4>{item[1]}</h4><p>{item[2]}</p></article></div>;
+}
+
+export default function WorkPage() {
+  const pageRef = useRef(null);
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const hero = heroRef.current;
+    const interactiveCleanups = [];
+    const pointerFine = window.matchMedia("(pointer: fine) and (min-width: 768px)").matches;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const ctx = gsap.context(() => {
+      gsap.set("[data-3d]", { transformPerspective: 1200, transformOrigin: "50% 50%" });
+      gsap.timeline({ defaults: { ease: "power4.out" } })
+        .from('[data-animate="nav"]', { y: -90, opacity: 0, duration: 1 })
+        .from("[data-hero-line]", { yPercent: 115, rotateX: -28, opacity: 0, stagger: .11, duration: 1.15 }, "-=.45")
+        .from("[data-hero-copy] > p, [data-hero-actions]", { y: 32, opacity: 0, stagger: .12, duration: .85 }, "-=.68")
+        .from("[data-portrait]", { xPercent: 24, scale: 1.16, filter: "blur(18px)", opacity: 0, duration: 1.35 }, "-=1.05")
+        .from("[data-float] span", { z: -240, scale: .35, opacity: 0, stagger: .055, duration: .8 }, "-=.8")
+        .from("[data-status]", { x: 80, rotateY: -18, opacity: 0, duration: .8 }, "-=.55");
+
+      gsap.to("[data-portrait]", { yPercent: 12, scale: 1.08, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1.2 } });
+      gsap.to("[data-grid]", { yPercent: 24, rotate: 1.2, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 } });
+      gsap.to("[data-hero-copy]", { yPercent: -12, opacity: .15, ease: "none", scrollTrigger: { trigger: hero, start: "35% top", end: "bottom top", scrub: 1 } });
+      gsap.to("[data-float] span", { y: (i) => i % 2 ? 40 : -34, x: (i) => (i % 3 - 1) * 32, rotate: (i) => i % 2 ? 7 : -6, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1.4 } });
+
+      gsap.utils.toArray("[data-section]").forEach((section, index) => {
+        const heading = section.querySelector("h2");
+        if (heading) gsap.from(heading, { x: isMobile ? (index % 2 ? 55 : -55) : 0, y: isMobile ? 30 : 90, rotateX: isMobile ? 0 : -16, opacity: 0, duration: 1.05, ease: "power4.out", scrollTrigger: { trigger: section, start: "top 82%" } });
+      });
+      gsap.utils.toArray('[data-animate="project-card"]').forEach((card, i) => {
+        gsap.from(card, { x: isMobile ? (i % 2 ? 44 : -44) : 0, y: isMobile ? 64 : 110, z: isMobile ? 0 : -180, rotateZ: isMobile ? (i % 2 ? 1.8 : -1.8) : 0, rotateX: isMobile ? 0 : 14, rotateY: isMobile ? 0 : (i % 2 ? -7 : 7), scale: isMobile ? .95 : 1, opacity: 0, duration: 1.05, ease: "power3.out", scrollTrigger: { trigger: card, start: "top 90%" } });
+        const rotateXTo = gsap.quickTo(card, "rotationX", { duration: .45, ease: "power3.out" });
+        const rotateYTo = gsap.quickTo(card, "rotationY", { duration: .45, ease: "power3.out" });
+        const image = card.querySelector("[data-card-image]");
+        const imageXTo = image ? gsap.quickTo(image, "xPercent", { duration: .7, ease: "power3.out" }) : null;
+        const imageYTo = image ? gsap.quickTo(image, "yPercent", { duration: .7, ease: "power3.out" }) : null;
+        const onMove = (event) => {
+          const rect = card.getBoundingClientRect();
+          const px = (event.clientX - rect.left) / rect.width;
+          const py = (event.clientY - rect.top) / rect.height;
+          card.style.setProperty("--mx", `${px * 100}%`);
+          card.style.setProperty("--my", `${py * 100}%`);
+          rotateYTo((px - .5) * 10);
+          rotateXTo((.5 - py) * 8);
+          imageXTo?.((px - .5) * -3.5);
+          imageYTo?.((py - .5) * -3.5);
+        };
+        const onLeave = () => {
+          rotateXTo(0); rotateYTo(0); imageXTo?.(0); imageYTo?.(0);
+          card.style.setProperty("--mx", "50%"); card.style.setProperty("--my", "50%");
+        };
+        card.addEventListener("pointermove", onMove);
+        card.addEventListener("pointerleave", onLeave);
+        interactiveCleanups.push(() => { card.removeEventListener("pointermove", onMove); card.removeEventListener("pointerleave", onLeave); });
+      });
+      gsap.from('[data-animate="stack-panel"]', { x: isMobile ? (i) => i % 2 ? 46 : -46 : 0, y: isMobile ? 38 : 90, z: isMobile ? 0 : -140, rotateY: isMobile ? 0 : 12, opacity: 0, stagger: .12, duration: .95, ease: "power3.out", scrollTrigger: { trigger: "#stack", start: "top 78%" } });
+      gsap.from('[data-animate="metric-card"]', { scale: .72, z: -180, opacity: 0, stagger: .09, duration: .85, ease: "back.out(1.4)", scrollTrigger: { trigger: "#about", start: "top 68%" } });
+      gsap.utils.toArray('[data-animate="timeline-item"]').forEach((item, i) => gsap.from(item, { x: isMobile ? 36 : (i % 2 ? -95 : 95), y: isMobile ? 32 : 0, rotateY: isMobile ? 0 : (i % 2 ? 13 : -13), opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: item, start: "top 86%" } }));
+      gsap.to("[data-timeline-line]", { scaleY: 1, transformOrigin: "top", ease: "none", scrollTrigger: { trigger: "[data-timeline]", start: "top 70%", end: "bottom 70%", scrub: 1 } });
+      if (isMobile) {
+        gsap.to("[data-float] span", { y: (i) => i % 2 ? 8 : -8, x: (i) => i % 3 === 0 ? 5 : -4, duration: 2.2, stagger: .13, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.from("[data-hero-actions] > *", { scale: .82, opacity: 0, stagger: .12, duration: .75, ease: "back.out(1.8)", delay: .9 });
+      }
+    }, pageRef);
+
+    const xTo = gsap.quickTo("[data-scene]", "rotationY", { duration: .7, ease: "power3" });
+    const yTo = gsap.quickTo("[data-scene]", "rotationX", { duration: .7, ease: "power3" });
+    const gridXTo = gsap.quickTo("[data-grid]", "x", { duration: 1.1, ease: "power3" });
+    const gridYTo = gsap.quickTo("[data-grid]", "y", { duration: 1.1, ease: "power3" });
+    const copyXTo = gsap.quickTo("[data-hero-copy]", "x", { duration: .85, ease: "power3" });
+    const copyYTo = gsap.quickTo("[data-hero-copy]", "y", { duration: .85, ease: "power3" });
+    const portraitXTo = gsap.quickTo("[data-portrait]", "x", { duration: .85, ease: "power3" });
+    const portraitYTo = gsap.quickTo("[data-portrait]", "y", { duration: .85, ease: "power3" });
+    const portraitRotateXTo = gsap.quickTo("[data-portrait]", "rotationX", { duration: .85, ease: "power3" });
+    const portraitRotateYTo = gsap.quickTo("[data-portrait]", "rotationY", { duration: .85, ease: "power3" });
+    const floatXTo = gsap.quickTo("[data-float]", "x", { duration: .62, ease: "power3" });
+    const floatYTo = gsap.quickTo("[data-float]", "y", { duration: .62, ease: "power3" });
+    const statusXTo = gsap.quickTo("[data-status]", "x", { duration: .55, ease: "power3" });
+    const statusYTo = gsap.quickTo("[data-status]", "y", { duration: .55, ease: "power3" });
+    const lightXTo = gsap.quickTo("[data-light]", "x", { duration: .75, ease: "power3" });
+    const lightYTo = gsap.quickTo("[data-light]", "y", { duration: .75, ease: "power3" });
+    const move = (event) => {
+      const rect = hero.getBoundingClientRect();
+      const nx = (event.clientX - rect.left) / rect.width - .5;
+      const ny = (event.clientY - rect.top) / rect.height - .5;
+      hero.style.setProperty("--hero-x", `${(nx + .5) * 100}%`);
+      hero.style.setProperty("--hero-y", `${(ny + .5) * 100}%`);
+      xTo(nx * 5);
+      yTo(-ny * 4);
+      gridXTo(nx * 7); gridYTo(ny * 5);
+      copyXTo(-nx * 11); copyYTo(-ny * 8);
+      portraitXTo(nx * 22);
+      portraitYTo(ny * 14);
+      portraitRotateYTo(nx * 4.5);
+      portraitRotateXTo(-ny * 3.5);
+      floatXTo(nx * 36); floatYTo(ny * 25);
+      statusXTo(nx * 42); statusYTo(ny * 30);
+      lightXTo(nx * 54); lightYTo(ny * 38);
+    };
+    const reset = () => {
+      xTo(0); yTo(0); gridXTo(0); gridYTo(0); copyXTo(0); copyYTo(0); portraitXTo(0); portraitYTo(0); portraitRotateXTo(0); portraitRotateYTo(0); floatXTo(0); floatYTo(0); statusXTo(0); statusYTo(0); lightXTo(0); lightYTo(0);
+    };
+    if (pointerFine) {
+      hero.addEventListener("pointermove", move);
+      hero.addEventListener("pointerleave", reset);
+
+      const aura = pageRef.current.querySelector("[data-cursor-aura]");
+      const auraXTo = gsap.quickTo(aura, "x", { duration: .32, ease: "power3" });
+      const auraYTo = gsap.quickTo(aura, "y", { duration: .32, ease: "power3" });
+      const moveAura = (event) => { aura.dataset.visible = "true"; auraXTo(event.clientX); auraYTo(event.clientY); };
+      const activateAura = (event) => { if (event.target.closest("a, button, [data-3d]")) aura.dataset.active = "true"; };
+      const deactivateAura = (event) => { if (!event.relatedTarget?.closest?.("a, button, [data-3d]")) aura.dataset.active = "false"; };
+      window.addEventListener("pointermove", moveAura, { passive: true });
+      window.addEventListener("pointerover", activateAura, { passive: true });
+      window.addEventListener("pointerout", deactivateAura, { passive: true });
+      interactiveCleanups.push(() => { window.removeEventListener("pointermove", moveAura); window.removeEventListener("pointerover", activateAura); window.removeEventListener("pointerout", deactivateAura); });
+
+      pageRef.current.querySelectorAll("[data-magnetic]").forEach((element) => {
+        const magneticMove = (event) => {
+          const rect = element.getBoundingClientRect();
+          gsap.to(element, { x: (event.clientX - rect.left - rect.width / 2) * .14, y: (event.clientY - rect.top - rect.height / 2) * .18, scale: 1.025, duration: .38, ease: "power3.out" });
+        };
+        const magneticReset = () => gsap.to(element, { x: 0, y: 0, scale: 1, duration: .55, ease: "elastic.out(1,.45)" });
+        element.addEventListener("pointermove", magneticMove);
+        element.addEventListener("pointerleave", magneticReset);
+        interactiveCleanups.push(() => { element.removeEventListener("pointermove", magneticMove); element.removeEventListener("pointerleave", magneticReset); });
+      });
+    }
+    return () => { if (pointerFine) { hero.removeEventListener("pointermove", move); hero.removeEventListener("pointerleave", reset); } interactiveCleanups.forEach((cleanup) => cleanup()); ctx.revert(); };
+  }, []);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', padding: { xs: 2, md: 4 }, mt: { xs: 8, md: 10 }, backgroundColor: '#fffbf6' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative', py: { xs: 2, md: 3 }, px: { xs: 2, md: 10 } }}>
-        <Typography component="div" sx={{ alignSelf: 'flex-end', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#dfd7fd', borderRadius: '50%', height: { xs: '120px', md: '200px' }, width: { xs: '120px', md: '200px' }, animation: 'dropIn 1s ease-out forwards, bounce 1s infinite 1s', '@keyframes dropIn': { '0%': { transform: 'translateY(-100vh)', opacity: 0 }, '100%': { transform: 'translateY(0)', opacity: 1 } }, '@keyframes bounce': { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-15px)' } } }}>
-          <Image src="/memoji.png" alt="memoji" width={150} height={150} style={{ borderRadius: '50%', width: '75%', height: '75%' }} />
-        </Typography>
+    <main className={styles.page} ref={pageRef}>
+      <div className={styles.cursorAura} data-cursor-aura aria-hidden="true"><span /></div>
+      <Navbar />
+      <section className={styles.hero} ref={heroRef}>
+        <div className={styles.gridTexture} data-grid />
+        <div className={styles.heroScene} data-scene>
+          <div className={styles.heroCopy} data-hero-copy>
+            <span className={styles.kicker}>SOFTWARE SYSTEMS / PRODUCT LOGIC / OPERATIONS</span>
+            <h1><span data-hero-line>I don’t just</span><span data-hero-line>build websites.</span><span data-hero-line>I build <em>systems.</em></span></h1>
+            <p>SaaS platforms, dashboards, automations, backend APIs, CRM workflows, and security-aware systems built with product sense.</p>
+            <div className={styles.actions} data-hero-actions><CTAButton href="#selected-systems">View selected systems</CTAButton><CTAButton href="#contact" ghost>Contact DevEmmy</CTAButton></div>
+          </div>
+          <div className={styles.portraitStage}>
+            <div className={styles.spotlight} data-light />
+            <div className={styles.portrait} data-portrait><Image src="/hero-cinematic-v2.png" alt="DevEmmy — software developer and systems builder" fill priority sizes="100vw" /></div>
+            <div className={styles.floatLabels} data-animate="floating-label" data-float>{["SaaS", "Backend APIs", "Automation", "Dashboards", "CRM", "Security", "Infrastructure", "Next.js", "Node.js"].map((label) => <span key={label}>{label}</span>)}</div>
+            <aside className={styles.statusCard} data-status><strong>Available for serious builds</strong><span>Remote / Nigeria</span><em>Systems-first developer</em></aside>
+          </div>
+        </div>
+      </section>
 
-        <Typography variant="h1" sx={{ color: '#000', fontFamily: 'Pacifico, cursive', fontStyle: 'normal', fontSize: { xs: '3rem', md: '6rem' }, fontWeight: 500, margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', letterSpacing: '0.05em', textTransform: 'none', animation: 'slideUp 1s ease-out forwards', animationDelay: '0.5s', '@keyframes slideUp': { '0%': { transform: 'translateY(100vh)', opacity: 0 }, '100%': { transform: 'translateY(0)', opacity: 1 } } }}>
-          <span>I'm Emmanuel.</span>
-          <span>Software Developer.</span>
-        </Typography>
+      <section className={styles.section} id="selected-systems" data-section>
+        <header className={styles.sectionHeader}><h2>Selected systems</h2><p>Not templates. Real systems with logic, workflows, and business intent.</p></header>
+        <div className={styles.projectGrid}>{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
+      </section>
 
-        <Typography variant="h4" sx={{ alignSelf: 'flex-end', color: '#656270', fontFamily: 'Inter, Helvetica, Arial, sans-serif', fontSize: { xs: '1rem', md: '1.125rem' }, lineHeight: 1.5, maxWidth: { xs: '100%', md: '32.5rem' }, animation: 'slideUp 1s ease-out forwards', animationDelay: '0.75s' }}>
-          Here's something about my work—building dope software that solves real problems.
-        </Typography>
+      <section className={`${styles.section} ${styles.stackSection}`} id="stack" data-section>
+        <header className={styles.sectionHeader}><h2>The stack behind the systems</h2><p>A control panel of tools chosen for products that need logic, speed, workflows, and operational clarity.</p></header>
+        <div className={styles.stackGrid}>{stackPanels.map((panel) => <StackPanel key={panel[1]} panel={panel} />)}<article className={`${styles.stackPanel} ${styles.signalPanel}`}><small>CONTROL SIGNAL</small><h3>Builds that connect interface, logic, workflow, deployment, and operations into one system.</h3></article></div>
+      </section>
 
-        <Box sx={{ alignSelf: 'flex-start', position: 'relative', mt: 2, width: { xs: '100px', md: '150px' }, height: { xs: '80px', md: '100px' } }}>
-          <Box sx={{ position: 'absolute', width: { xs: '30px', md: '40px' }, height: { xs: '30px', md: '40px' }, backgroundColor: '#FF2E63', borderRadius: '4px', animation: 'float1 3s infinite ease-in-out', '@keyframes float1': { '0%': { transform: 'translate(0, 0)' }, '50%': { transform: 'translate(30px, -20px)' }, '100%': { transform: 'translate(0, 0)' } } }} />
-          <Box sx={{ position: 'absolute', left: { xs: '40px', md: '50px' }, width: { xs: '40px', md: '60px' }, height: { xs: '40px', md: '60px' }, backgroundColor: '#00FFB9', borderRadius: '4px', animation: 'float2 4s infinite ease-in-out', '@keyframes float2': { '0%': { transform: 'translate(0, 0)' }, '50%': { transform: 'translate(-25px, 20px)' }, '100%': { transform: 'translate(0, 0)' } } }} />
-          <Box sx={{ position: 'absolute', left: { xs: '50px', md: '60px' }, width: { xs: '25px', md: '35px' }, height: { xs: '25px', md: '35px' }, backgroundColor: '#dfd7fd', borderRadius: '4px', animation: 'float3 3.5s infinite ease-in-out', '@keyframes float3': { '0%': { transform: 'translate(0, 0)' }, '50%': { transform: 'translate(15px, -25px)' }, '100%': { transform: 'translate(0, 0)' } } }} />
-        </Box>
+      <section className={`${styles.section} ${styles.about}`} id="about" data-section>
+        <div><h2>I build with product sense, not just code.</h2><p>DevEmmy turns messy workflows into clear software systems. From frontend interfaces to backend logic, automation, dashboards, and infrastructure-aware deployments, the focus is simple: build tools that solve real operational problems.</p></div>
+        <div className={styles.metricGrid}>{metrics.map((metric) => <MetricCard key={metric[1]} metric={metric} />)}</div>
+      </section>
 
-        {projects.map((project, index) => (
-          <Link key={index} href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-            <Box sx={{ alignSelf: 'center', mt: 6, width: '100%', maxWidth: { xs: '100%', md: '1200px' }, p: { xs: 3, md: 5 }, backgroundColor: project.bgColor, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', position: 'relative', opacity: 0, transform: 'translateY(50px)', animation: 'slideUpCard 0.8s ease-out forwards', animationDelay: `${index * 0.2}s`, '@keyframes slideUpCard': { '0%': { opacity: 0, transform: 'translateY(50px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } } }}>
-              <Typography variant="h3" sx={{ position: 'absolute', top: { xs: 10, md: 20 }, right: { xs: 10, md: 16 }, fontFamily: 'Libre Baskerville, cursive', fontSize: { xs: '1.5rem', md: '2rem' }, color: '#000', textTransform: 'uppercase' }}>
-                {project.name}
-              </Typography>
+      <section className={`${styles.section} ${styles.timelineSection}`} data-section>
+        <h2>Learning curve, documented.</h2>
+        <div className={styles.timeline} data-timeline><div className={styles.timelineLine} data-timeline-line />{timeline.map((item, index) => <TimelineItem key={item[0]} item={item} index={index} />)}</div>
+      </section>
 
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', height: { xs: '300px', md: '450px' }, mt: { xs: 8, md: 4 } }}>
-                <Box sx={{ position: 'absolute', width: { xs: '90%', md: '80%' }, height: '80%', background: 'linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%)', borderRadius: '16px', zIndex: 0 }} />
-
-                <Box sx={{ position: 'absolute', left: { xs: '25%', md: '30%' }, transform: 'translateX(-50%)', width: { xs: '100px', md: '160px' }, height: { xs: '200px', md: '320px' }, backgroundColor: '#e0e0e0', borderRadius: '30px', padding: { xs: '10px 6px', md: '15px 10px' }, boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)', zIndex: 2, border: '2px solid #000' }}>
-                  <Box sx={{ position: 'absolute', top: '10px', left: '50%', transform: 'translateX(-50%)', width: { xs: '40px', md: '60px' }, height: '5px', backgroundColor: '#000', borderRadius: '5px' }} />
-                  <Box sx={{ position: 'absolute', left: '-2px', top: { xs: '40px', md: '60px' }, width: '2px', height: { xs: '20px', md: '30px' }, backgroundColor: '#000' }} />
-                  <Box sx={{ position: 'absolute', right: '-2px', top: { xs: '60px', md: '80px' }, width: '2px', height: { xs: '30px', md: '40px' }, backgroundColor: '#000' }} />
-                  <Box sx={{ width: '100%', height: '100%', backgroundColor: '#000', borderRadius: '20px', overflow: 'hidden' }}>
-                    <Image src={project.phoneScreenshot} alt={`${project.name} Phone Screenshot`} width={140} height={290} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-                  </Box>
-                </Box>
-
-                <Box sx={{ position: 'relative', width: { xs: '300px', md: '620px' }, height: { xs: '200px', md: '400px' }, zIndex: 1, transform: { xs: 'rotate(-3deg)', md: 'rotate(-5deg)' } }}>
-                  <Box sx={{ width: '100%', height: { xs: '160px', md: '350px' }, backgroundColor: '#e0e0e0', borderRadius: '10px 10px 0 0', padding: { xs: '5px', md: '10px' }, boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' }}>
-                    <Box sx={{ width: '100%', height: '100%', backgroundColor: '#000', borderRadius: '4px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <Image src={project.laptopScreenshot} alt={`${project.name} Laptop Screenshot`} width={1200} height={675} style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
-                    </Box>
-                  </Box>
-                  <Box sx={{ width: '100%', height: { xs: '40px', md: '50px' }, backgroundColor: '#d0d0d0', borderRadius: '0 0 10px 10px', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' }}>
-                    <Box sx={{ width: { xs: '80px', md: '150px' }, height: { xs: '20px', md: '30px' }, backgroundColor: '#b0b0b0', borderRadius: '5px' }} />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Link>
-        ))}
-
-        <Box sx={{ mt: { xs: 6, md: 8 } }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px', textAlign: 'center', mb: { xs: 10, md: 20 }, mt: { xs: 6, md: 10 } }}>
-            <Typography variant="h1" sx={{ fontFamily: 'Pacifico, cursive', fontSize: { xs: '2.5rem', md: '3.5rem' }, color: '#000', mb: 1 }}>
-              Interested in working together on a project?
-            </Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'Inter, Helvetica, Arial, sans-serif', fontSize: { xs: '1rem', md: '1.125rem' }, color: '#656270', mb: 2, maxWidth: { xs: '90%', md: '100%' } }}>
-              Occasionally I take on projects that I find interesting, send me over a message and let's talk.
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-            <Typography variant="body2" sx={{ fontFamily: 'Inter, Helvetica, Arial, sans-serif', fontSize: { xs: '9px', md: '0.875rem' }, color: '#656270' }}>
-              Site coded and developed with love by me. © 2025 Dev Emmy
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+      <section className={styles.contact} id="contact" data-section>
+        <h2>Have a serious build?</h2><p>Bring the problem. I’ll bring the system.</p>
+        <div className={styles.actions}><CTAButton href="mailto:emmanuelugochukwu2000@gmail.com">Email DevEmmy</CTAButton><CTAButton href="https://github.com/Dev-Emmyy" ghost>GitHub</CTAButton><CTAButton href="https://www.linkedin.com/in/emmanuel-ugochukwu-ba798a25a" ghost>LinkedIn</CTAButton><CTAButton href="#selected-systems" ghost>Selected systems</CTAButton></div>
+      </section>
+    </main>
   );
-};
-
-export default WorkPage;
+}

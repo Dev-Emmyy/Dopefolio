@@ -1,28 +1,10 @@
-/* Import Google Fonts alternatives */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Permanent+Marker&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap');
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap");
 
-/* Define CSS variables */
-:root {
-  --font-sans-serif: "Inter", Helvetica, Arial, sans-serif;
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: var(--font-sans-serif);
-  background-color: #fffbf6;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+:root { --bg: #050605; --surface: #0b0d0b; --text: #f4f6f0; --muted: rgba(244,246,240,.64); --lime: #bbff2d; --font-display: "Space Grotesk", "Sora", "Arial Black", sans-serif; --font-body: "Inter", "Manrope", sans-serif; --font-mono: "IBM Plex Mono", "JetBrains Mono", monospace; }
+* { box-sizing: border-box; padding: 0; margin: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; background: var(--bg); }
+body { max-width: 100vw; overflow-x: hidden; background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; line-height: 1.6; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+::selection { color: #080908; background: var(--lime); }
