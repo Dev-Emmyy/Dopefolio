@@ -8,12 +8,12 @@ import Navbar from "../components/Navbar";
 import styles from "./work.module.css";
 
 const projects = [
-  { number: "01", title: "SchEase Appointment System", category: "SaaS / Scheduling", description: "A dependable appointment platform designed around availability, booking logic, admin visibility, and clean operational handoffs.", tech: ["Next.js", "Node.js", "Postgres"], image: "/laptop-screenshot.png", cta: "View system", featured: true },
-  { number: "02", title: "Lead & CRM Automation Pipeline", category: "Automation / CRM", description: "A lead-routing pipeline that turns scattered enquiries into structured qualification, follow-up, ownership, and reporting.", tech: ["CRM", "Webhooks", "Automation"], image: "/laptop-screenshot-2.png", cta: "Inspect workflow" },
-  { number: "03", title: "Legacy Esports Tournament Manager", category: "Platform / Competition", description: "Tournament operations, registration logic, brackets, match states, and organizer controls consolidated into one system.", tech: ["React", "APIs", "Realtime"], image: "/laptop-screenshot-3.png", cta: "Explore platform" },
-  { number: "04", title: "COOU Transcript/Admin Portal", category: "Admin / Education", description: "A structured request and administration portal for transcript workflows, status visibility, queues, and institutional operations.", tech: ["Next.js", "Admin", "Workflows"], image: "/laptop-screenshot-4.png", cta: "View architecture" },
-  { number: "05", title: "SOC / Security Reporting", category: "Security / Reporting", description: "Security-aware reporting that turns incident signals into readable evidence, escalation context, and decisions.", tech: ["SOC", "Reporting", "Security"], image: "/laptop-screenshot-5.png", cta: "Review system", featured: true },
-  { number: "06", title: "Open-source SaaS Deployment Concept", category: "Infrastructure / Open Source", description: "A deployment concept that packages open-source software into a maintainable SaaS operating model.", tech: ["Docker", "Cloud", "Open source"], image: "/laptop-screenshot-6.png", cta: "See deployment" },
+  { number: "01", title: "Nigeria Crisis Sentinel", category: "Civic Tech / Crisis Intelligence", description: "A source-led crisis desk combining verified reporting with live incident mapping across Nigeria.", tech: ["Next.js", "OpenStreetMap", "Live incidents"], image: "/nigeria-crisis-sentinel.png", cta: "Visit live platform", link: "https://nigeria-crisis-map-7zyk.vercel.app/", featured: true },
+  { number: "02", title: "Quantnoon Trading Platform", category: "Fintech / Trading Automation", description: "An algorithmic trading platform delivering automated signals, market tools, and multi-channel alerts.", tech: ["Next.js", "Trading signals", "Automation"], image: "/quantnoon-platform.png", cta: "Visit live platform", link: "https://www.quantnoon.com/" },
+  { number: "03", title: "BetYield Transaction Platform", category: "Betting / Operations", description: "A betting-company platform for monitoring transactions, managing operators, reporting, tax payments, and audits.", tech: ["Transactions", "Reporting", "Audit trails"], image: "/betyield-backend-system.png", cta: "Visit live platform", link: "https://www.betyield.ng/" },
+  { number: "04", title: "SchEase School Platform", category: "EdTech / School Operations", description: "A cloud school platform automating admissions, fees, records, results, reporting, and parent communication.", tech: ["Cloud SaaS", "Automation", "Analytics"], image: "/schease-platform.png", cta: "Visit live platform", link: "https://schease.com/" },
+  { number: "05", title: "GoHunt Crypto Exchange", category: "Fintech / Digital Assets", description: "A crypto exchange for buying and selling digital assets with live rates, bank transfers, and wallet settlement.", tech: ["Crypto trading", "Wallets", "Payments"], image: "/gohunt-platform.png", cta: "Visit live platform", link: "https://gohunt.vercel.app/", featured: true },
+  { number: "06", title: "Rangers F.C. Digital Platform", category: "Sports / Media & Commerce", description: "The official Rangers digital hub for club news, media, foundation stories, merchandise, and supporters.", tech: ["Next.js", "MUI", "Commerce"], image: "/rangers-international-hero.jpeg", cta: "Visit live platform", link: "https://rangersintl.com/" },
 ];
 
 const stackPanels = [
@@ -42,12 +42,20 @@ function CTAButton({ children, href, ghost = false }) {
 function ProjectCard({ project }) {
   return (
     <article className={`${styles.projectCard} ${project.featured ? styles.featured : ""}`} data-animate="project-card" data-3d>
-      <div className={styles.cardMeta}><span>{project.number}</span><span>{project.category}</span></div>
+      <div className={styles.cardMeta}><span data-count={project.number}>{project.number}</span><span>{project.category}</span></div>
       <h3>{project.title}</h3>
       <p>{project.description}</p>
       <div className={styles.mockup}><Image src={project.image} alt={`${project.title} interface`} fill sizes="(max-width: 760px) 100vw, 50vw" data-card-image /></div>
       <div className={styles.chips}>{project.tech.map((item) => <span key={item}>{item}</span>)}</div>
-      <a className={styles.cardLink} href="#contact" data-magnetic>{project.cta} <span>↗</span></a>
+      <a
+        className={styles.cardLink}
+        href={project.link || "#contact"}
+        target={project.link ? "_blank" : undefined}
+        rel={project.link ? "noreferrer" : undefined}
+        data-magnetic
+      >
+        {project.cta} <span>↗</span>
+      </a>
     </article>
   );
 }
@@ -58,11 +66,12 @@ function StackPanel({ panel }) {
 }
 
 function MetricCard({ metric }) {
-  return <article className={`${styles.metric} ${metric[2] ? styles.featured : ""}`} data-animate="metric-card" data-3d><strong>{metric[0]}</strong><span>{metric[1]}</span></article>;
+  const countable = /^\d/.test(metric[0]);
+  return <article className={`${styles.metric} ${metric[2] ? styles.featured : ""}`} data-animate="metric-card" data-3d><strong {...(countable ? { "data-count": metric[0] } : {})}>{metric[0]}</strong><span>{metric[1]}</span></article>;
 }
 
 function TimelineItem({ item, index }) {
-  return <div className={`${styles.timelineRow} ${index % 2 ? styles.timelineReverse : ""}`}><h3>{item[1]}</h3><article className={`${styles.timelineCard} ${item[3] ? styles.featured : ""}`} data-animate="timeline-item"><small>{item[0]}</small><h4>{item[1]}</h4><p>{item[2]}</p></article></div>;
+  return <div className={`${styles.timelineRow} ${index % 2 ? styles.timelineReverse : ""}`}><h3>{item[1]}</h3><article className={`${styles.timelineCard} ${item[3] ? styles.featured : ""}`} data-animate="timeline-item"><small data-count={item[0]}>{item[0]}</small><h4>{item[1]}</h4><p>{item[2]}</p></article></div>;
 }
 
 export default function WorkPage() {
@@ -79,6 +88,32 @@ export default function WorkPage() {
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const ctx = gsap.context(() => {
       gsap.set("[data-3d]", { transformPerspective: 1200, transformOrigin: "50% 50%" });
+      gsap.utils.toArray("[data-count]").forEach((element) => {
+        const finalText = element.dataset.count || element.textContent.trim();
+        const match = finalText.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+        if (!match) return;
+
+        const [, prefix, numberText, suffix] = match;
+        const target = Number(numberText);
+        const decimals = numberText.includes(".") ? numberText.split(".")[1].length : 0;
+        const leadingZeros = !decimals && numberText.length > 1 && numberText.startsWith("0");
+        const counter = { value: 0 };
+        const render = () => {
+          const rounded = decimals ? counter.value.toFixed(decimals) : Math.round(counter.value).toString();
+          const formatted = leadingZeros ? rounded.padStart(numberText.length, "0") : rounded;
+          element.textContent = `${prefix}${formatted}${suffix}`;
+        };
+
+        render();
+        gsap.to(counter, {
+          value: target,
+          duration: 1.45,
+          ease: "power2.out",
+          onUpdate: render,
+          onComplete: () => { element.textContent = finalText; },
+          scrollTrigger: { trigger: element, start: "top 88%", once: true },
+        });
+      });
       gsap.timeline({ defaults: { ease: "power4.out" } })
         .from('[data-animate="nav"]', { y: -90, opacity: 0, duration: 1 })
         .from("[data-hero-line]", { yPercent: 115, rotateX: -28, opacity: 0, stagger: .11, duration: 1.15 }, "-=.45")
